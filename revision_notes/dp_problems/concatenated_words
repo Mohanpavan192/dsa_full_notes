@@ -1,0 +1,49 @@
+https://leetcode.com/problems/concatenated-words/description/
+in this problem the thing is to check whether we can split a word into more than two words or not that's the hint,
+  and we use dp for it
+
+
+  class Solution {
+public:
+    unordered_set<string> dict;
+
+    bool canForm(string &word, int idx, vector<int> &dp) {
+        if (idx == word.size()) return true; // reached end
+        
+        if (dp[idx] != -1) return dp[idx];
+
+        string temp;
+        for (int i = idx; i < word.size(); i++) {
+            temp.push_back(word[i]);
+            // if current prefix is in dict and remaining can also form
+            if (dict.count(temp)) {
+                if (canForm(word, i + 1, dp)) 
+                    return dp[idx] = true;
+            }
+        }
+        return dp[idx] = false;
+    }
+
+    vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {
+        dict.clear();
+        for (auto &w : words) {
+            if (!w.empty()) dict.insert(w);
+        }
+
+        vector<string> result;
+
+        for (auto &word : words) {
+            if (word.empty()) continue;
+            dict.erase(word); // avoid using the word itself
+            
+            vector<int> dp(word.size(), -1);
+            if (canForm(word, 0, dp)) {
+                result.push_back(word);
+            }
+
+            dict.insert(word); // add it back for next iterations
+        }
+
+        return result;
+    }
+};
