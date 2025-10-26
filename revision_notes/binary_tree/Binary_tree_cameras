@@ -1,0 +1,44 @@
+this si s agood one, try again
+https://leetcode.com/problems/binary-tree-cameras/submissions/1812331988/
+
+
+
+
+
+
+
+
+
+
+approach
+
+
+class Solution {
+    int solve(TreeNode* root,int&counter)
+    {
+        if(!root)
+        return 2;
+        int left=solve(root->left,counter);
+        int right=solve(root->right,counter);
+        if(left==0||right==0)
+        {
+            counter++;
+            return 1;
+        }
+        else if(left==1||right==1)
+        {
+            return 2;
+        }
+        
+            return 0;
+        
+    }
+public:
+    int minCameraCover(TreeNode* root) {
+        if(!root)
+        return 0;
+        int counter=0;
+       int a= solve(root,counter);
+      return counter+(a==0?1:0);
+    }
+};
