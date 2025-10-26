@@ -1,0 +1,32 @@
+here i have used indices,that's it,insted of shrinking the window wheneve condition hits, i simply update it's index value in map and update curr _start
+https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        vector<int>char_set(256,-1);
+         int curr_start=0,n=s.size(),max_len{0};
+         
+         for(int i=0;i<n;i++)
+         {
+            int prev_idx=char_set[s[i]];
+           if(prev_idx==-1)
+           char_set[s[i]]=i;
+           else
+           {
+            
+            if(prev_idx>=curr_start)
+            {
+                curr_start=prev_idx+1;
+
+            }
+                char_set[s[i]]=i;
+
+           }
+                max_len=max(max_len,i-curr_start+1);
+
+         }
+         return max_len;
+        
+    }
+};
