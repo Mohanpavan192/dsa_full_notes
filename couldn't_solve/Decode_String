@@ -1,0 +1,114 @@
+Decode string
+https://leetcode.com/problems/decode-string/
+do again
+
+
+approach 2 is also good
+
+
+
+
+
+Approach1:
+
+
+
+  class Solution {
+public:
+    string decodeString(string s) {
+        stack<char>sk;
+        
+        for(int i=0;i<s.size();i++)
+        {
+           if(s[i]==']')
+           {
+            string temp;
+            while(sk.top()!='[')
+            {
+                temp.push_back(sk.top());
+                sk.pop();
+            }
+            reverse(temp.begin(),temp.end());
+            sk.pop();//to remove '['
+            string nums;
+             while(!sk.empty()&&sk.top()>='0'&&sk.top()<='9')
+             {
+                 nums.push_back(sk.top());
+                 sk.pop();
+             }
+             reverse(nums.begin(),nums.end());
+             int k_time=stoi(nums);
+             string res;
+             while(k_time>0)
+             {
+                 res+=temp;
+                 k_time--;
+             }
+             for(auto val:res)
+             {
+                sk.push(val);
+             }
+           }
+           else
+           sk.push(s[i]);
+
+        }
+        string ans;
+        while(!sk.empty())
+        {
+            ans+=sk.top();
+            sk.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
+
+
+
+Approach 2:
+
+class Solution {
+public:
+string solve(string&s,int &i)
+{
+    int num=0;
+    string res;
+    while(i<s.size())
+    {
+            if(s[i]>='0'&&s[i]<='9')
+            {
+              num=num*10+s[i]-'0';
+              i++;
+            }
+            else if(s[i]=='[')
+            {
+                i++;
+                string inner=solve(s,i);
+
+                while(num>0)
+                {
+                    res+=inner;
+                    num--;
+                }
+             
+            }
+            else if(s[i]==']')
+            {
+                 i++;
+
+                return res;
+            }
+            else
+           { res+=s[i];
+           i++;
+           }
+    }
+    return res;
+}
+    string decodeString(string s) {
+        int j=0;
+        return solve(s,j);
+
+    }
+};
