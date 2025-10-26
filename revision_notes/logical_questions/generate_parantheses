@@ -1,0 +1,61 @@
+https://leetcode.com/problems/generate-parentheses/description/
+
+here i am using pre generated fixed string of size 2*n
+with first and last values been fixed as "(" and ")"
+and now i am iterating from idx 1,which can have two possibilities whether open or closed bracket,and 
+parallelly incrementing so_far, which maintains so_far open brackets count, if it reaches n, i am pushing answer,
+i am also constraining the close d brackets by mandating to open bracket if (idx/2>=so_far)
+if(idx==2 and so _far==1
+that means we have something like ())))) and idex is pointing at 2, so a new bracket must be opened, that's what this constraint is for
+
+so  anew bracket will be opened for cases like ())))) [idx==2] ,(()))) [idx==4],like that ,that way i am constrining this 
+
+class Solution {
+public:
+void fill(string&common,int idx,int so_far,vector<string>&ans,int &n)
+{
+  //cout<<"parent "<<common<<" "<<idx<<" "<<so_far<<" "<<n<<endl;
+    if(so_far==n)
+    {
+      //  cout<<"answer "<<common<<endl;
+        ans.push_back(common);
+        return;
+    }
+   
+        if(idx%2==0&&idx/2>=so_far)
+        {
+            common[idx]='(';
+          //  cout<<"hybrid "<<common<<endl;
+
+            fill(common,idx+1,so_far+1,ans,n);
+            common[idx]=')';
+            return;
+        }
+       
+        common[idx]='(';
+               // cout<<" child 1 "<<common<<endl;
+
+        fill(common,idx+1,so_far+1,ans,n);
+        common[idx]=')';
+       // cout<<" child 2 "<<common<<endl;
+
+        fill(common,idx+1,so_far,ans,n);
+       // cout<<"hi "<<endl;
+    
+   // return;
+}
+    vector<string> generateParenthesis(int n) {
+        string common;
+        for(int i=0;i<2*n;i++)
+        {
+            common.push_back(')');
+        }
+        common[0]='(';
+        vector<string>ans;
+        fill(common,1,1,ans,n);
+        return ans;
+    }
+};
+
+
+
