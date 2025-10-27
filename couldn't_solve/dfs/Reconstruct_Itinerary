@@ -1,0 +1,38 @@
+this is a good problem, i couldn't solve it at first, you couldn't build the intuition, so build again
+https://leetcode.com/problems/reconstruct-itinerary/
+
+
+Approach -
+Use Dfs to start from source and enter the source into vector after traversing all connecting nodes,then insert the src node, and finally reverse it, while returning answers
+
+void dfs(string src,vector<string>&result,unordered_map<string,priority_queue<string,vector<string>,greater<string>>>&itenary
+)
+{
+auto &heap=itenary[src];
+while(!heap.empty())
+{
+    string dest=heap.top();
+    heap.pop();
+    dfs(dest,result,itenary);
+}
+result.push_back(src);
+
+}
+    vector<string> findItinerary(vector<vector<string>>& tickets) {
+        unordered_map<string,priority_queue<string,vector<string>,greater<string>>>itenary;
+              //  unordered_map<string,int>visited;
+
+        for(auto val:tickets)
+        {
+            itenary[val[0]].push(val[1]);
+            visited[val[0]+"_"+val[1]]++;
+        }
+                        vector<string>result;
+
+                dfs("JFK",result,itenary);
+
+        reverse(result.begin(),result.end());
+        //help("JFK",itenary,visited,result);
+        return result;
+    }
+};
