@@ -1,0 +1,47 @@
+This problem is similar to dividing the arr tnto k subsets, each with equal sum,and the elements of the subsets are exclusive ,
+not shared by any two subsets,but here the subsets number is 4 that's all
+so to consider element in to a particular subset,we consider all indices,feom given index and to avoid duplication, we maintain visited arr,
+and to avoid same subsequent elements taking again, we maintain last variable and update it,
+
+https://leetcode.com/problems/matchsticks-to-square/
+
+class Solution {
+public:
+bool vis[15];
+bool check(vector<int>&arr,int i,int groups,int target,int curr_sum)
+{
+    if(groups==4)
+    return true;
+    if(target==curr_sum)
+    {
+        return check(arr,0,groups+1,target,0);
+    }
+    if(i==arr.size())
+    return false;
+    if(curr_sum>target)
+    return false;
+    
+    int last=-1;
+    for(;i<arr.size();i++)
+    {
+        if(last==arr[i])
+        continue;
+        if(vis[i])
+        continue;
+        vis[i]=true;
+        last=arr[i];
+        if(check(arr,i+1,groups,target,curr_sum+arr[i]))
+        return true;
+        vis[i]=false;
+    }
+    return false;
+}
+    bool makesquare(vector<int>& matchsticks) {
+        int circumference=accumulate(matchsticks.begin(),matchsticks.end(),0);
+     if(circumference%4)//check whethet total_sum can be divided into 4 parts, like 122,124 etc
+     return false;
+     int side_len=circumference/4;
+    // sort(matchsticks.rbegin(),matchsticks.rend());
+     return check(matchsticks,0,0,side_len,0);   
+    }
+};
