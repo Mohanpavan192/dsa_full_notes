@@ -1,0 +1,39 @@
+this si s atricky one,do again
+https://leetcode.com/problems/isomorphic-strings/
+
+
+
+
+
+
+
+
+
+
+
+
+Approach
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        char s_map[256]={0},t_map[256]={0} ;
+         int m=s.size(),n=t.size();
+      
+        for(int i=0;i<m;i++)
+        {
+            int sc=s[i],tc=t[i];
+            if(s_map[sc]==0&&t_map[tc]==0)
+            {
+                s_map[sc]=tc;
+                t_map[tc]=sc;
+            }
+            else
+            {
+                if(s_map[sc]!=tc||t_map[tc]!=sc)
+                return false;
+            }
+       
+        }
+        return true;
+    }
+};
