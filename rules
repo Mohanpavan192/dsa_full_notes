@@ -1,2 +1,3 @@
 whenever shortest path is asked, only go for BFS,,whatever it is maze,matrix,graph,anything, go for bfs
 Read question properly, ALWAYS READ FULL QUESTION ,PLEASE READ FULL QUESTION
+whenever minimise maximum distacne, or maximise minimum distance any key word come,go for binary search and count elemnts, that's it
