@@ -1,0 +1,62 @@
+do again in optimal way
+https://leetcode.com/problems/maximal-square/submissions/1815772307/
+
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& mat) {
+
+        int max_area=0;
+        int m=mat.size(),n=mat[0].size();
+        int maxside=0;
+        vector<vector<int>>matrix(m+1,vector<int>(n+1,0));
+   /*
+   optimal approach
+   for(int i=1;i<=m;i++)
+        {
+            for(int j=1;j<=n;j++)
+            {
+                if(mat[i-1][j-1]=='1')
+                {
+                    matrix[i][j]=1+min({matrix[i-1][j],matrix[i][j-1],matrix[i-1][j-1]});
+                    maxside=max(maxside,matrix[i][j]);
+                }
+            }
+        }
+        return maxside*maxside;*/
+        //long approach;
+        for(int i=0;i<m;i++)
+        {
+            stack<int>sk;
+
+            for(int j=0;j<n;j++)
+            {
+                matrix[i][j]=mat[i][j]-'0';
+                if(matrix[i][j]&&i>0)
+                matrix[i][j]+=matrix[i-1][j];
+                while(!sk.empty()&&matrix[i][sk.top()]>matrix[i][j])
+                {
+                    int curr=matrix[i][sk.top()];
+                    sk.pop();
+                    int prev=sk.empty()?-1:sk.top();
+                    int width=j-prev-1;
+                    int a=min(curr,width);
+                  //  if(a!=1)
+                    max_area=max(max_area,a*a);
+                }
+                sk.push(j);
+            }
+            while(!sk.empty())
+            {
+                int curr=matrix[i][sk.top()];
+                sk.pop();
+                int prev=sk.empty()?-1:sk.top();
+                int width=n-prev-1;
+                int a=min(curr,width);
+                //if(a!=1)
+                max_area=max(max_area,a*a);
+
+            }
+        }
+        return max_area;
+    }
+};
