@@ -1,0 +1,15 @@
+here all we need is to understand kmp algorithm
+everything we can understand in kmp algo rithm but the while loop part, wheneven a mismatch happens is explained here,
+whenever we can't extend previous previx suffix, what we do is we go to the previous prefix from start like for this 
+s="ababac" lps=0,0,1,2,3,?
+when curr=='c';
+c!=s[3]
+so what we do is we go to the prefix of "aba" from beginning ,because it is also a suffix "aba",now in "aba" we ask what is the lps at idx 2 which is at last 
+'a', because that prefix is also present at end of curr suffix, like for lps[2]=1(here) ,means char a is present at idx=4, so we just need to compare idx=1 with curr idx, value
+,that's waht this lop does
+https://chatgpt.com/share/690361e7-1904-8005-917a-5be07740a082
+
+problem:https://leetcode.com/problems/shortest-palindrome/
+
+
+do this again
