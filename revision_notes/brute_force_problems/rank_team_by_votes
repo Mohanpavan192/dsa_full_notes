@@ -1,0 +1,62 @@
+here first number of teams is calculated as n;
+then for every team positions vector of size(n+1) is maintained, (0 to n-1) for positions (1 to n) and last element to identify the character
+  and a map is maintained to map entried of teams (means char) vs their respective indices in rank_map (vector)
+then i have iterated through strings and for every string first i check whether this team entry is present or not, if not present i will amke an entry usinh idx k
+  ,then i will update the char value at the last of the vector allocated to this team
+,then after the positions count is updated according to the indices
+like for steing "ABC"
+i will search idx in map for 'A' ,if not found will amke an entry
+  later i will got to the idx found in map and got to htat vector and increment the count at idx 0 because 'A' pos is 0;
+same incremant B at B's vector at pos 1
+and 'C' at pos 2 
+thrn i call my customised sort function
+
+
+class Solution {
+public:
+    string rankTeams(vector<string>& votes) {
+        if(votes.size()==1)
+        return votes[0];
+        int n=votes[0].size();
+        vector<vector<int>>rank_map(n,vector<int>(n+1,0));
+        unordered_map<char,int>ranks;
+        int k=0;
+        for(auto s:votes)
+        {
+            for(int i=0;i<n;i++)
+            {
+                int rank_idx=0;
+            if(ranks.find(s[i])==ranks.end())
+            {
+                ranks[s[i]]=k;
+                rank_idx=k;
+                rank_map[k][n]=s[i]-'A';
+                k++;
+            }
+            else
+            {
+                rank_idx=ranks[s[i]];
+            }
+            rank_map[rank_idx][i]++;
+            }
+        }
+        auto x=[&](const vector<int>&a,const vector<int>&b)
+        {
+            int i=0;
+            while(i<n&&a[i]==b[i])
+            {
+                i++;
+            }
+           if(i==n)
+           return a[i]<b[i];
+           return a[i]>b[i];
+        };
+        sort(rank_map.begin(),rank_map.end(),x);
+        string temp;
+        for(auto val:rank_map)
+        {
+            temp.push_back(val.back()+'A');
+        }
+        return temp;
+    }
+};
