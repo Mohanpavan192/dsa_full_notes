@@ -1,0 +1,17 @@
+write subarrays and find pattern
+you will find that the pattern is
+res+=(i+1)*(n-i)*arr[i];
+https://www.geeksforgeeks.org/problems/sum-of-subarrays2229/1
+
+class Solution {
+  public:
+    int subarraySum(vector<int>& arr) {
+        // code here
+        int n=arr.size(),res=0;
+        for(int i=0;i<n;i++)
+        {
+            res+=(i+1)*(n-i)*arr[i];
+        }
+        return res;
+    }
+};
