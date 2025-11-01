@@ -1,0 +1,48 @@
+here we use sliding window technique, we reset the temp map when the current element in s2 is not present in s1,
+if(element is present but it's count is more, so we increase start idx, to copress fro left side,till we find current elemnt
+and also modifying current temp_map
+if(temp_map==default_map)
+return true;
+so the key logic, both stiring should contain same freq maps,that's the key logic
+https://leetcode.com/problems/permutation-in-string/description/
+
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+       vector<int>char_map(26,0),temp_map(26,0),default_map(26,0);
+     for(auto val:s1)
+     char_map[val-'a']++;
+     int n1=s1.size(),n2=s2.size();
+     int start=-1;
+     temp_map=char_map;
+     for(int i=0;i<n2;i++)
+     {
+        if(start==-1)
+        start=i;
+         if(char_map[s2[i]-'a']==0)
+         {
+            start=-1;
+            temp_map=char_map;
+            continue;
+         }
+            if(temp_map[s2[i]-'a']>0)
+           { 
+            temp_map[s2[i]-'a']--;
+           if(temp_map==default_map)
+           return true;
+           }        
+            else
+            {
+              while(start<i&&s2[start]!=s2[i])
+              {
+                temp_map[s2[start++]-'a']++;
+              }
+            start++;
+            }
+   
+     }
+
+      return false;
+    }
+};
+
