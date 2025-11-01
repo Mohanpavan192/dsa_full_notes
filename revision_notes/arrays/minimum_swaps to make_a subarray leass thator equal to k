@@ -1,0 +1,43 @@
+first we need to find the total number of elements less<=k and store it in count;
+so now there are some let's say count number of elements in the array,now we need to make a sub array of size count, with minimum swaps,
+so to find minimum swaps we need to find the max number of elements <=k in a subarray of size count,
+so for start we find the number of elements <=k in a subarray from i=0, to i=count-1;
+and store that in l;then we find the 'l' value in subsequent subarrays of size count,using the last for loop, good one ,do again
+
+Approach
+// Final function implementation
+class Solution {
+  public:
+    int minSwap(vector<int>& arr, int k) {
+        // code here
+        //to find the number of elements <=k
+        int start=-1,n=arr.size(),count=0,maxlen=0,l=0;
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i]<=k)
+            {
+                count++;
+            }
+           
+        }
+        //initial subarray element count
+        for(int i=0;i<count;i++)
+        {
+            if(arr[i]<=k)
+            l++;
+        }
+        //subsequent subarray element count
+        for(int i=count;i<n;i++)
+        {
+            maxlen=max(maxlen,l);
+            if(arr[i-count]<=k)
+            l--;
+            if(arr[i]<=k)
+            l++;
+        }
+         maxlen=max(maxlen,l);
+
+        return count-maxlen;
+        
+    }
+};
