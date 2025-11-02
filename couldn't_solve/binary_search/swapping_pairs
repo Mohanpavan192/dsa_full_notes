@@ -1,0 +1,44 @@
+this sis a good one
+Swapping pairs make sum equal
+https://www.geeksforgeeks.org/problems/swapping-pairs-make-sum-equal4142/1
+here 
+sum_a-x+y=sum_b+x-y
+-->x-y=(sum_a-sum_b)/2;
+diff is odd,that meand x-y result is decimal, which is not possible so for odd sum difference it's not possible,
+but if diff is even, we need to find x-y==curr_diff, that's it and we apply binary search on bot arrays
+if curr>diff
+j++ and if curr<diff
+i++ and we always assume sum_a>sum_b,if not swap vectors
+class Solution {
+
+  public:
+    bool findSwapValues(vector<int>& a, vector<int>& b) {
+        // Your code goes here
+        int sum_a=accumulate(a.begin(),a.end(),0);
+        int sum_b=accumulate(b.begin(),b.end(),0);
+        if(sum_b>sum_a)
+        return findSwapValues(b,a);
+        sort(a.begin(),a.end());
+        sort(b.begin(),b.end());
+        int n1=a.size(),n2=b.size();
+       int diff=sum_a-sum_b;
+       
+       if(diff%2)
+       return false;
+       diff/=2;
+       
+       int i=0,j=0;
+       while(i<n1&&j<n2)
+       {
+           int curr=a[i]-b[j];
+           if(curr==diff)
+           return true;
+           if(curr<diff)
+           i++;
+           else
+           j++;
+       }
+        return false;
+        
+    }
+};
