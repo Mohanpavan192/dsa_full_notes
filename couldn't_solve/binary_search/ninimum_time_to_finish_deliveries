@@ -1,0 +1,48 @@
+this si a good problem
+https://leetcode.com/contest/weekly-contest-474/problems/minimum-time-to-complete-all-deliveries/submissions/1818403634/
+here the logic is we know that we have to sue binary search, so after selecting a mid value, we check
+whether drone 1 can finish deleiveries in given time by calculating
+avail=hours-(hours/recharge);
+if(both drones can finish their respective individual deliveries separately in given hours,
+we now check whether usable hours are sufficient,
+usable hours means total hours minus hours in which both drones are unavailable(using lcm of both)
+anf if usable hours is also >=(d1+d2)
+then in those usable hours atleast one drone is available and if that is greater than>= total deliveries, we return true
+
+
+
+
+
+class Solution {
+public:
+    long long minimumTime(vector<int>& d, vector<int>& r) {
+        long long d1=d[0],d2=d[1],r1=r[0],r2=r[1],ans=-1;
+        long long l=lcm(r1,r2);
+        auto can=[&](long long &T){
+            long long avail1=T-(T/r1);
+            long long avail2=T-(T/r2);
+            if(avail1<d1||avail2<d2)
+                return false;
+            long long usable=T-(T/l);
+            if(usable<d1+d2)
+                return false;
+            return true;
+        };
+        long long low=1,high=1e18,mid=0;
+        while(low<=high)
+            {
+                mid=(low+high)>>1;
+                if(can(mid))
+                {
+                    ans=mid;
+                    high=mid-1;
+                }
+                else
+                    low=mid+1;
+                
+            }
+        //cout<<ans<<endl;
+        return ans;
+    }
+};
+©leetcode
