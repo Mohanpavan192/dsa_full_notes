@@ -1,0 +1,52 @@
+here the key issue is to figure how to verify whether a component is complete or not
+https://leetcode.com/problems/count-the-number-of-complete-components/description/
+the ans , complete means there should be an edge between every pair of vertices, which means every vertex should have an edge with every other vertex
+so if total vertices in a component is n ,then every vertex should have n-1 edges, that's it,
+ here to find out complete component, i am just taking vertex count of initial node and checking whether it is equal to all other vertices
+int the component or not  if not then it is not a complete graph,also i am checking whether the vertex_count is equal to (total vertices involved int he component -1)
+  class Solution {
+public:
+    int countCompleteComponents(int n, vector<vector<int>>& edges) {
+        vector<vector<int>>adj(n,vector<int>());
+        for(auto x:edges)
+        {
+            int a=x[0],b=x[1];
+            adj[a].push_back(b);
+            adj[b].push_back(a);
+        }
+        int count=0;
+        vector<bool>visited(n,false);
+        for(int i=0;i<n;i++)
+        {
+            if(visited[i])
+            continue;
+            queue<int>q;
+
+            q.push(i);
+            visited[i]=true;
+            bool is_complete=true;
+            int vertex_count=(adj[i]).size();
+            int temp_count=0;
+            while(!q.empty())
+            {
+                temp_count++;
+                int src=q.front();q.pop();
+               if(vertex_count!=(adj[src].size()))
+               is_complete=false;
+                for(auto dst:adj[src])
+                {
+                   if(visited[dst])
+                   continue;
+                   visited[dst]=true;
+                   q.push(dst);
+                }
+            }
+          //  cout<<vertex_count<<" "<<i<<endl;
+         if(temp_count-1!=vertex_count)
+          if(is_complete)
+          count++;
+
+        }
+        return count;
+    }
+};
