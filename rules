@@ -1,3 +1,5 @@
 whenever shortest path is asked, only go for BFS,,whatever it is maze,matrix,graph,anything, go for bfs
 Read question properly, ALWAYS READ FULL QUESTION ,PLEASE READ FULL QUESTION
-whenever minimise maximum distacne, or maximise minimum distance any key word come,go for binary search and count elemnts, that's it
+whenever minimise maximum distacne, or maximise minimum distance any key word come,go for binary search or greedy algo and count elemnts, that's it
+for some problems greeedy solution might have better complexity compared to binary search approach,fo example frog jump II problem, check it
+Also checkout subarray sum equal to k , divisible by k problems
