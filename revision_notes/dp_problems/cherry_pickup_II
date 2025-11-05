@@ -1,0 +1,63 @@
+good one do again
+  https://leetcode.com/problems/cherry-pickup-ii/submissions/1821588517/
+  here the logic is 
+first we compute the sum of cherries in last row, for different position of robots,ok 
+  if both robots are at different posiitons, max cherries collected eual to sum of cherries in those positions, if both robots are
+at same position then max cherries collected is just the cherries int hat position
+that's it,
+  after that we calculate different combinations of position sthat robots can exist for each row,
+and afor a row ,we take j, k as positions of robots, and we consider the possible paths that the robots can take, we only consider paths 
+if bith paths exist that means if next path index is not out of bounds,then we take the max value of the next paths which is precomputed already
+then we add the current row cherries to the max next row paths,same if both robots are at same position, we add the cherries only once, if not
+  we add the cherries at both positions
+and like that we compute for thecombinations of positions in first row also,then we return ahead[0][n-1],indicationf one robot at pos 0 and another at pos n-1;
+
+class Solution {
+public:
+    int cherryPickup(vector<vector<int>>& grid) {
+        int m=grid.size();
+        int n=grid[0].size();
+        vector<vector<int>>ahead(n,vector<int>(n,0));
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                
+                ahead[i][j]=grid[m-1][i];
+                if(i!=j)
+                ahead[i][j]+=grid[m-1][j];
+            }
+        }
+        for(int i=m-2;i>=0;i--)
+        {
+        vector<vector<int>>curr(n,vector<int>(n,0));
+        for(int j=0;j<n;j++)
+        {
+            for(int k=0;k<n;k++)
+            {
+               
+                int C[3]={-1,0,1};
+                int temp=0;
+                for(int l=0;l<3;l++)
+                {
+                    for(int m=0;m<3;m++)
+                    {
+                        
+                        int c1=C[l]+j,c2=C[m]+k;
+                        if(c1>=0&&c1<n&&c2>=0&&c2<n)       
+                        temp=max(temp,ahead[c1][c2]);
+                    }
+                }
+              temp+=grid[i][j];
+             if(j!=k)
+            temp+=grid[i][k];
+            curr[j][k]=temp;
+
+            }
+        }
+ahead=curr;
+
+        }
+        return ahead[0][n-1];
+    }
+};
