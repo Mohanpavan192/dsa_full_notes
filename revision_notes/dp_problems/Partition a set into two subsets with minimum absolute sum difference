@@ -1,0 +1,34 @@
+here the core logic is to find out the maximum sum near half of the total sum that we can compute, this si calculated using 
+class Solution{
+
+  public:
+
+	int minDifference(vector<int>&nums, int n)  { 
+          int total_sum=accumulate(nums.begin(),nums.end(),0);
+          int target=(total_sum+1)/2;
+          vector<int>ahead(target+1,false);
+          ahead[0]=true;
+          vector<int>curr(target+1,false);
+          curr[0]=true;
+          for(int i=n-1;i>=0;i--)
+          {
+            for(int j=0;j<=target;j++)
+            {
+                curr[j]=ahead[j];
+                if(nums[i]<=j)
+                {
+                    curr[j]=curr[j]||ahead[j-nums[i]];
+                   // cout<<j<<" "<<curr[j]<<endl;
+
+                }
+            }
+            ahead=curr;
+          }   
+        for(int j=target;j>=0;j--)
+        {
+            if(ahead[j])
+            return abs((total_sum-j)-j);
+        }   
+            return total_sum;
+	} 
+};
