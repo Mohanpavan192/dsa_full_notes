@@ -1,0 +1,54 @@
+here the problem is
+whether subset sum equal to k
+partition equal subset sum
+count subsets with sum k
+target sum equals to k
+all these problems basically use a single dp concept,the core idea is same
+the idea is to verify whether we can form a particular sum at at an index, there are two choices we can either include the index or we amynot
+for example for target sum question
+in code we find our own target and check whether we can find this target or not
+
+we create a vector<int>ahead(target+1,0);
+at last idx, what are the possible sums we can achieve for sure
+the only sure sum is 0, that is by not taking any element so
+we put ahead[0]=1;
+then for every index from last we run a loop like
+
+for(int j=0;j<=target;j++)
+{
+if we don't take current element
+curr[j]=ahead[j];//to avoid this we can simply copy ahead to copy before this for loop(curr=ahead)
+if(nums[i]<=j)//that means if we can be able to achieve sum j using nums [i] or not,if nums[i] >j ,thn we cannot have sum j from last using nums[i] right
+curr[j]+=ahead[j-nums[i]];//if we decided to take nums[i], then we need to check the remaining = (sum j-nums[i]), whether it's pre
+sent or not, if it's present we add it's ways of forming remaining sum also.
+and after this we copy ahead=curr;
+}
+
+
+final code
+class Solution {
+public:
+    int findTargetSumWays(vector<int>& nums, int target) {
+        int n=nums.size();
+        int total_sum=accumulate(nums.begin(),nums.end(),0);
+        if((target+total_sum)%2!=0||abs(target)>total_sum)
+        return 0;
+        target=(target+total_sum)/2;
+        vector<int>ahead(target+1,0);
+
+        ahead[0]=1;
+        vector<int>curr(target+1,0);
+
+        for(int i=n-1;i>=0;i--)
+        {
+            curr=ahead;
+            for(int j=0;j<=target;j++)
+            {
+                if(nums[i]<=j)
+                curr[j]+=ahead[j-nums[i]];
+            }
+            ahead=curr;
+        }
+        return ahead[target];
+    }
+};
