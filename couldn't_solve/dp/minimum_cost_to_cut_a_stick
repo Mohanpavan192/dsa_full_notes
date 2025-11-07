@@ -1,0 +1,38 @@
+this is a good one
+https://leetcode.com/problems/minimum-cost-to-cut-a-stick/description/
+go through the question first, then you will understand
+the first thing we need to do is sort the cuts, so that we can divide and apply further cuts,
+instead of using two extra arguments for knowing thhe current rod_start, rod_end, we pushed two extra variables 0,n to the cuts,
+so that when we made a cut, we can simply know the current rod length by cuts[end+1]-cuts[start-1];
+now we need to find out which cut we need to make first int he sorted cuts given, so we just take every possible cut, and return the minimum of them
+greedy approach
+now to optimise it further to avoid auxiliary stack space, we have written two for loops
+let's assume input be [1,2,3]
+so to solve this we need to divide it further we can divide it from end or from start, here we are dividing from end, that's why 
+we start from end i=c;
+int first iteration we get the minimum possiblrepenalty when we make a cut at 3, that is dp[3][3], 
+when i =2, first we calculate minimum possible penalty when we make a cut at 2 ,i.t dp[2][2],then we calculate what's the minimum possible
+penalty for dp[2][3]
+two case
+1.)we could make cut at index two first and then make cut at index 3
+2.)or we could make cut at index 3 first and then make cut at index 2,
+if we make cut at index 2 first, ans will be dp[3][3]+dp[2][1](dp[2][1] will be zero)
+if we make cut at index 3 first ans will be dp[3][4] + dp[2][2](dp[3][4] will be zero)
+see for calculating dp[2][3]=min(two possibilities)+cuts[4]-cuts[1];
+for calculating dp[2][3] ,we needed dp[2][2] and dp[3][3],that's why we calculated them first
+then 
+        for(int i=c;i>=1;i--)
+        {
+        basically this loop starts from 
+            for(int j=1;j<=c;j++)
+            {
+                if(i>j)
+                continue;
+                dp[i][j]=INT_MAX;
+                for(int k=i;k<=j;k++)
+                {
+                    dp[i][j]=min(dp[i][j],dp[i][k-1]+dp[k+1][j]);
+
+                }
+                dp[i][j]+=(cuts[j+1]-cuts[i-1]);
+            }
