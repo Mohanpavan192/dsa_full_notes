@@ -1,0 +1,26 @@
+it's a good one
+https://takeuforward.org/plus/dsa/dynamic-programming/dp-on-subsequences/rod-cutting-problem
+the logic here is first we initialise a array named so_far and it stores the max price of taking a rod of length i,
+that means if we don't perform any cuts, thsi will be the max profit we get,
+now we traverse every length from 1 to n and check what's the max profit i can get by cutting the rod of current length into smaller ones
+so i check for a rod of length 5 , i can cut a rod of length 1,2,3,4 that's it, because profit for length 5 is already present
+in initial state, and i calculate the max profit i can accumulate for current length rod and store it, at the end, i will have calculated
+the max profit for a rod of length n
+good one
+check again
+class Solution{
+  public:
+    int rodCutting(vector<int> price, int n) {
+    
+     for(int i=0;i<n;i++)
+     {
+      int curr_length=i+1;
+
+      for(int j=1;j<curr_length;j++)
+      {
+        price[i]=max(price[i],price[i-j]+price[j-1]);//here i check the the max profit of rod of length i+1,when it is cut at a length of j
+      }
+     }
+     return price.back();
+    }
+};
