@@ -1,0 +1,2 @@
+segment trees, and try to solve
+https://leetcode.com/problems/longest-increasing-subsequence-ii/description/
