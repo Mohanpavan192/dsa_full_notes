@@ -1,0 +1,7 @@
+checkout coin change I first, the check this,
+  https://leetcode.com/problems/coin-change-ii/description/
+  here the key is to find the total number of cimbinations for a particular sum,
+the key is to add total number of combinations without taking current element + combinationsby taking current element,that's it, we don't need to add 
+don't add combinations of or remaining sum from previous or ahead states, because those combinations are already added in curr using curr=ahead;
+  do we shouldn't add it twice;
+  
