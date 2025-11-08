@@ -1,0 +1,43 @@
+https://leetcode.com/contest/biweekly-contest-169/problems/longest-non-decreasing-subarray-after-replacing-at-most-one-element/description/
+
+good one do again
+
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) {
+             vector<int> serathion = nums;
+
+        int n = nums.size();
+        if (n <= 2) return n;
+
+        vector<int> left(n, 1), right(n, 1);
+        // left[i] = length of non-decreasing subarray ending at i
+        for (int i = 1; i < n; ++i) {
+            if (nums[i] >= nums[i-1]) left[i] = left[i-1] + 1;
+        }
+        // right[i] = length of non-decreasing subarray starting at i
+        for (int i = n-2; i >= 0; --i) {
+            if (nums[i] <= nums[i+1]) right[i] = right[i+1] + 1;
+        }
+
+        int ans = 1;
+        // without any change
+        for (int i = 0; i < n; ++i) ans = max(ans, left[i]);
+
+        // try replacing each index i
+        for (int i = 0; i < n; ++i) {
+            // Replace nums[i] so it can extend left side by 1
+            if (i > 0) ans = max(ans, left[i-1] + 1);
+
+            // Replace nums[i] so it can extend right side by 1
+            if (i < n-1) ans = max(ans, right[i+1] + 1);
+
+            // Replace nums[i] to merge left and right completely (no extra +1)
+            if (i > 0 && i < n-1 && nums[i+1] >= nums[i-1]) {
+                ans = max(ans, left[i-1] + 1+right[i+1]);
+            }
+        }
+
+        return ans;
+    }
+};©leetcode
