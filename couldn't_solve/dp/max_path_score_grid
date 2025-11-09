@@ -1,0 +1,67 @@
+this is a tricky one,first read the problem
+https://leetcode.com/contest/weekly-contest-475/problems/maximum-path-score-in-a-grid/
+/now thie thig is for solving htis problem, we also need to maintain an extra dimension for cost, like cost incurred till reaching an index, 
+and then with that code we need to check whether current_cost+cost_till_now<=max_cost and whether we can reach by taking current index in
+the path that is by checking whether new_cost=current_cost+cost_till_now;
+curr[j+1][new_cost]!=-1 //move right path if it exist
+ahead[j][new_cost]!=-1//move down path if it exist
+
+class Solution {
+public:
+    int maxPathScore(vector<vector<int>>& grid, int K) {
+        int m = grid.size(), n = grid[0].size();
+
+        // DP tables: ahead = next row, curr = current row
+        vector<vector<int>> ahead(n + 1, vector<int>(K + 1, -1));
+        vector<vector<int>> curr(n + 1, vector<int>(K + 1, -1));
+
+        int currentScore = grid[m - 1][n - 1];
+        int currentCost = (currentScore >= 1 ? 1 : 0);
+
+        // initialize last cell
+        for (int costTillNow = 0; costTillNow <= K; costTillNow++) {
+            if (costTillNow + currentCost <= K)
+                ahead[n - 1][costTillNow] = currentScore;
+        }
+
+        // fill last row (moving right to left)
+        for (int j = n - 2; j >= 0; j--) {
+            currentScore = grid[m - 1][j];
+            currentCost = (currentScore >= 1 ? 1 : 0);
+            for (int costTillNow = 0; costTillNow <= K; costTillNow++) {
+                if (currentCost + costTillNow <= K && ahead[j + 1][currentCost + costTillNow] != -1) {
+                    ahead[j][costTillNow] = currentScore + ahead[j + 1][currentCost + costTillNow];
+                }
+            }
+        }
+
+        // process all remaining rows bottom-up
+        for (int i = m - 2; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                currentScore = grid[i][j];
+                currentCost = (currentScore >= 1 ? 1 : 0);
+                for (int costTillNow = 0; costTillNow <= K; costTillNow++) {
+
+                    curr[j][costTillNow] = -1;
+
+                    // from right
+                    if (j + 1 < n) {
+                        if (currentCost + costTillNow <= K && curr[j + 1][currentCost + costTillNow] != -1) {
+                            curr[j][costTillNow] = currentScore + curr[j + 1][currentCost + costTillNow];
+                        }
+                    }
+
+                    // from below
+                    if (currentCost + costTillNow <= K && ahead[j][currentCost + costTillNow] != -1) {
+                        curr[j][costTillNow] = max(curr[j][costTillNow],
+                                                   currentScore + ahead[j][currentCost + costTillNow]);
+                    }
+                }
+            }
+            ahead = curr;
+        }
+
+        return ahead[0][0];
+    }
+};
+©leetcode
