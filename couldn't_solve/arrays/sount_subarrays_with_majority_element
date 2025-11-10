@@ -1,0 +1,11 @@
+https://leetcode.com/problems/count-subarrays-with-majority-element-ii/description/
+//this is atricky one check again
+
+here the concept is we maintain a prefix array,for every non target element we decrement the prefix sum by -1 and for every target element
+we increment the prefix sum by +1,so for every prefix[i] ,we need to check a j, where prefix[j]<prefix[i] and j<i,because, 
+let prefix[j] be y and prefix[i]  be x,if x>y, that means  subarray starting from j+1 and ending at i,the total_sum is positive, which means
+in that subarray target elements are more than non-target elements.so that's  a valid subarray,
+so now all we have to do is find number of j's such that prefix[j] <prefix[i],given j<i;
+refer inversion counts question
+now to take entire sub array, we intialise prefix_sum with size n+1,and prefix_sum[0] as 0;
+so that we can take a subarray from j=0 to i also
