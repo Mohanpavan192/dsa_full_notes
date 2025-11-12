@@ -1,0 +1,20 @@
+https://leetcode.com/problems/count-distinct-subarrays-divisible-by-k-in-sorted-array/description/
+/this is a good one,
+the actual problem happens only with subarrays having same element
+  so if we solve that ,we can solve this,because anyway the remaining subarrays are sorted
+  to solve the subarrays with same elementlet's consider an example
+  nums={2,2,2,2},k=2;
+for(i=0;i<n;)we get
+  res=1;(tis implies subarray [2,2,2,2] appears 1 time in given nums)(4-1+1)times
+res+=2;(this implies subarray [2,2,2] appears 2 times in given nums)(4-3+1)times
+res+=3;(this implies subarray [2,2] appears 3 times in given nums)(4-2+1)times
+res+=4;(this implies subarray [2] appears 4 times in given nums)(4-1+1)times
+so how to avoid taking duplicate subarrays
+  for that let's iterate from l=1 to 4 since equal subarray len is 4
+  if((l*nums[i])%k==0)
+  that means if 1*2=2 is divisible by k then we need to remove it's duplicate sequences 
+  for a subarray of len l,total sequences in a n array of n is given by n-l+1,we need to keep only instance of this sequence, so we need
+  to remove remaining n-l sequences
+  that's why we do
+  res-=n-l;
+  for all l from 1 to n and whose product is divisible by k
