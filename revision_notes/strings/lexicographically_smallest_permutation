@@ -1,0 +1,10 @@
+https://leetcode.com/problems/lexicographically-smallest-permutation-greater-than-target/description/
+here the key intution is till is valid index
+ans is
+t.substr(0,valid_idx)+valid_elem+lowest possible permutation of remaining characters
+so for every char we need to check whether a bigger element is present or not
+if yes update the lastvalid index,if not check if current_elemnt is available if yes update current element
+if current element is alos not present then that's it,we need to break and apply this
+t.substr(0,valid_idx)+valid_elem+lowest possible permutation of remaining characters;
+chck this solution once
+https://leetcode.com/problems/lexicographically-smallest-permutation-greater-than-target/solutions/7285627/greedy-approach-on-highly-intuitive-by-j-mo00
