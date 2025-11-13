@@ -1,0 +1,58 @@
+catalan numbers comes when you have to create non overlapping sequences,non crossing sequences,
+for example consider this problem ,where there are n people sitting around a circle,how many non crossing handshakes can you make,
+no crossing means,
+lets take n=6;
+crossing means if you make a handshake from 1 to 5 then number 6 has to make handshake with either 2 or 3 or 4 right but if you perform any of these 
+handshakes,you will cross the 1 to 5 handshake, this shouldn't happen,
+if this should n't happen means ,you have to shake hands with persons which has even difference inbetween them like
+(1,4),(1,2),(1,6)
+so number of ways of making handshakes when n==6 is
+(1–2), (3–4), (5–6)
+
+(1–2), (3–6), (4–5)
+
+(1–4), (2–3), (5–6)
+
+(1–6), (2–3), (4–5)
+
+(1–6), (2–5), (3–4)
+so there are 5 ways
+and the code is given as
+
+f(i,j)
+{
+let's assume i=1, j=6,
+for(int k=i+1;k<=j;k+=2)
+{
+if(i-j<=1)if number of persons is less than or equal to 2 then only one way possible
+return 1;
+if i make handshake with k
+
+int a=f(i+1,k-1);how many ways of shaking hands on left side means from person i+1,k-1
+int b=f(k+1,j);how many ways of shaking hands on right side means from person k+1 to j;
+count+=a*b;
+}
+return count;
+}
+catalan number recurrence,
+for n people, number of handshakes is n/2
+so cataln states that
+if j=n/2;
+f(j)
+{
+if(j<=1)
+return 1;
+for(int k=0;k<j;k++)
+{
+count+=f(i)*f(j-k-1);
+it is same as number of ways on left *number ways on right
+there we are taking persons here we are  taking handshakes so ,handsakes=(number of persons)/2;
+}
+return count;
+}
+refer to this chatgpt chat
+https://chatgpt.com/share/69157183-3260-8005-a03e-068de0cefff1
+
+we can apply this to number ways of writing valid parentheses of size n;
+there also we can conside open and closeing paranthesis as people making hand shakes, one shouldn't cross other,
+
