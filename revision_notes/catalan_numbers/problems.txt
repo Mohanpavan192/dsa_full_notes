@@ -1,0 +1,8 @@
+⭐ 1. Handshake / Non-crossing Chords Problems
+⭐ 2. Parentheses Problems (Very Common in Interviews)
+⭐ 3. Binary Tree / BST Structure Problems
+⭐ 4. Polygon Triangulation Problems
+⭐ 5. Lattice Path & Grid Problems
+⭐ 6. Stack Sorting / Permutation Problems
+check this chat
+https://chatgpt.com/share/69157183-3260-8005-a03e-068de0cefff1
