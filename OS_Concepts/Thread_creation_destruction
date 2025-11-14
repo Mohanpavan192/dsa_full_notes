@@ -1,0 +1,14 @@
+In cpp a thread can be created using std::thread t(callable function,function's arguments)
+if another thread is creating a sub thread, and the function is in another class, we need to pass object's pointer also
+  std::thread t(callable function|functor|lamda ,object's ptr if required,arguments);
+you must either call join or detach
+if you don't do that before exiting, after exiting the thread goes out of scope and 
+  it calls terminate() for the process, terminate is a cpp runtime function it's like a kill switch ,if it's triggered, entire program's execution is stopped
+but what if a min thread created another thread and didn't join before exiting, what happens?
+  actually when main thread exits, it doesn't mean program execution completed, after main thread exits, the cpp dtarts clearing all 
+local variables,global variables,threads and any other objects created, 
+  so while doing that the process is till alive,so when cpp tries to destruct a thread ,it sees it's not joined or detached, it panics
+  and calls terminate on the program
+we can pass arguments as references by using std::ref();
+the thing is we can use async also, if we don't want to manage threads exclusively refer this chat last two conversations
+  https://chatgpt.com/share/69174161-b5d4-8005-975a-43a2de35fa98
