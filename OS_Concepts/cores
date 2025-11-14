@@ -1,0 +1,16 @@
+What are cores in a  cpu?
+  cores are single independent processing unit of a cpu,it's like a mini cpu inside a cpu
+  only one thread can bexecuted per core
+if i have 128 core cpu, only 128 threads can be executed at any given time
+wait, but siplb process creates 100's nhi 1000's of threads and they execute or atleast seem to execute parallelly?
+  but my server has only 128 cores, so how is this happening?
+  the thing is OS uses a time slicing and context switching,means let's assume two thread and one core
+  thread1 will execute for t1,then thread2 will execute ,then again thread1 executes, The OS switches executing threads, so that every thread has time to
+execute some part of it's tasks,it happens thousands of times per second, that's why, it feels like all threads are executing in parrallel
+in reality only one thread can and will execute at any given time.
+
+  Context Switching is  aprocess where the cpu stops executing one thread/process, saves it's state add it to queue and switches to another thread/process
+Switching is managed by thread scheduler
+cons:
+takes time to save/load context,on every context switch
+  
