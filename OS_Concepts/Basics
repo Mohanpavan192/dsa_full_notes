@@ -1,0 +1,9 @@
+1.)PRogram is a set of instructions stored in memory
+2.)Process is a program in execution, Aprogram is called  process if it is executing right now,otherwise it's just program in memory
+3.)A thread is a sub task of process, a process can have so many threads for different tasks, threads are light weight in nature,
+imagine program as a set of instructions that's it
+process means those instructions are getting executed,for some instructiosn our main process may create separate child processes (threads )all together, these child processes are called
+threads.
+4.)number of threads per user is governed by ulmit -u,in our case it is 65535
+meeans this user is allowed to create a total of 65535 process that's it
+if  a process created 10 threads right now, available limit = 65535-10 child process-1 main procees which created child process=65524;
