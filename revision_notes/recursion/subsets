@@ -1,0 +1,4 @@
+subsets
+https://leetcode.com/problems/subsets/description/
+try optimal approach
+/the optimal approach is based on bit representation of integers
