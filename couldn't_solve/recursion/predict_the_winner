@@ -1,0 +1,16 @@
+good question actually
+https://leetcode.com/problems/predict-the-winner/description/
+
+here the key intuition let's assume every player is playing optimally, so if a players gain over other player is>=0 then,answer is true, otherwise false
+so i need to have the max gain in each step,initially player has two options choose stat or end elment,
+so calculate gain in both cases and return maximum, you may wonder what's the trick, the trick here is if i have taken start
+then i am subtracting nums[start]-f(start+1,end)->step 1
+in next step for calculation of f(start+1,end)
+i could take either start+1, or end right
+so all i do is 
+max(nums[start+1]-f((start+2,end),nums[end]-f(start+1,end-1));->step 2
+so the subtracting part in step 2(either f((start+2,end) or f(start+1,end-1)) is first player's gain
+since i am subtracting it andd taking the maximum of this and subtracting that in step 1,player_1 curr_score-(max player_2curr_score))
+i am essentially adding the player1 possibilities;
+Refer thi chat's last conversation
+https://chatgpt.com/share/6916870b-9794-8005-bc02-24f5c7df59d5
