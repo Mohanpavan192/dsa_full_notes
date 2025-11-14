@@ -1,0 +1,14 @@
+Definition:
+Multithreading is the ability of program to run multiple threads (independent tasks) concurrently,either truly parallel (like 8 threads, 9
+9 cores) or through context switching.
+advantages:
+1.)non-blockig
+2.)resource sharing
+3.)faster execution
+4.)Scalability
+Concurrency:
+Multiple tasks progressing over time, but not neccessarily at the exact time
+9 tasks 8 cores ,concurrent
+Parallellism:
+Multiple tasks progressing at the same time
+8 tasts 8 cores ,parallellism
