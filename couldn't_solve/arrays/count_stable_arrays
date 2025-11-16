@@ -1,0 +1,7 @@
+ggod one try again
+https://leetcode.com/problems/count-stable-subarrays/description/
+
+/here when streak breaks, we are not making current streak 0, because, when we reacha  new sequence of increasing
+elements, we can simply subtract prefix[new_seq_end]-prefix[new_seq_begin], if we would have made that 0, when streak broke,
+then we should have checked in between also, for naother streak break point, but now we could just directly subtract the prefix
+streak,because we are carry frowarding the base streak also
