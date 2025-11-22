@@ -1,0 +1,49 @@
+Well Fenwick trees are based on the concept , that any number can be represented in powers of 2,ok first we intialise an array of size (n+1)
+to 0,it helps only for range sum,that's it
+now 
+1.)Find sum from 1 to x,here indices are 1-indexed;
+tet's take any number x;
+it can be written as:
+x= 2^a+2^b+2^c+2^d+....;
+now all i have to do is add the values at index a,b,c,d,e....;
+now how do i get those indices,
+it's simple actually,2's complemet of any number gives you the last bit thst's is set
+for ex: 15=01111;
+2's complemt calculation
+a.)first convert to 1's complemet
+so it becomes 10000;
+b.)now add 1 to it
+so it becomes 10001;
+now do and between this and origina number
+10001&01111;
+u will get 00001;
+see that's it we got the lat bit set
+now add the sum at initial number which is 15,sum+=arr[15]
+next idx will be 15-00001=14;
+got to 14 =01110;add that too sum+=arr[14];
+01110&((10001+1=10010))=00010;
+now 14-00010=01100=>12
+go to 12 and add it sum+=arr[12]
+next got to 8 and add it sum+=arr[8]
+do it till idx>0,next idx will be -8,so stop
+
+
+
+2.)That's it now update operation
+update operation ,
+Let's say u have to update an idx to a value y
+first you need to calculate the diff (y-arr[idx]),now add this to all indices which has idx in their range
+ok now how do i find the idx
+Let idx=10101;
+so the indices which has idx in their ranges is
+1011,1100 ,10000 and so on,till <=n;
+so now i need to remove all non-zero part till zero and make that zero as 1, that willl give the next idx i need to update,how can i do that
+take as you know find the LSB(idx&(2'scomplement of idx))then add that to initial idx,
+you will get the next idx value
+next_idx=10101+((10101&(10101->01010->01010+00001=01011))=00001)=10110
+do it till your next_idx<=n;
+now you know the update operation and calc_prefix _sum too
+all the best
+You can refer the imolementation here:
+https://leetcode.com/problems/range-sum-query-mutable/description/
+
