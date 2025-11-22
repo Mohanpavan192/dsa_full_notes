@@ -1,0 +1,44 @@
+Sparse Tables are one of a kinf thing, which answers, range queries like min ,max or gcd for immutable arrays
+means once table is built no update operation can be performed,because for every update it takes O(nlogn) to rebuild the table again
+the thing is for every range
+let L=1,R=11;
+range=R-L+1=11;
+11=1011;
+so waht we do is we take the msb value ,which is 1000=8,so we have a precomputed range of
+L to L+8,R-8+1 to R;
+i mean with a interval defference of 8 and take the min or max of these values, how to precompute and explanation is given int his video
+https://www.youtube.com/watch?v=0jWeUdxrGm4
+also do this question for practise
+here the purpose of log array is to syore the MSB value for any value from 0 to n
+as log[11]=8;that's why we create a log array
+then we initialise our main min_r,max_r arrays with intial 1 digit len values, means there own values
+To calculate a lenght of 2^j from any index,we need values of len 2^(j-1) from those index
+that's why we start with j=1 to j=log(n) -->2^1 to 2^n ,ok,we only compute a max of 2 ^n from any index if that interval
+exist, because anyway we are taking max or min of overlapping intervals right, so this will work
+let's say you need min from range 1 to n
+so now we laready have precomputed value 
+j=n-1+1=n,max value is n only 
+so it will be sufficient if we calculate a max interval of 2^n;
+after taking j, we start from every index(i) and check if there exists an interval from i by using this
+i+(1<<j)-1<n
+1<<j is equal to 2^j,so we are just checking whether the end index of interval is less than n or not
+if yes
+simply we caclculate
+min_r[i][j]=min(min_r[i][j-1],min_r[i+(1<<(j-1))][j-1]);
+that's how we build it;
+and for query
+we take intervla length
+as j=R-L+1;
+int k=log[j];
+ans=min(min_r[L][k-1],min_r[R-(1<<(k-1))+1][k-1]);
+as simple as that
+(1<<(k-1)) this is small interval length and +1 after that is for this case
+if k=1,L=1,R=2;
+we need to divide range from L to L and R to R;
+L to k-1 means L to (k-1)=0,means self 
+next R-(1<<(k-1)) means R-1 which is equal to L
+but we ndivided it from R to R right ,that's why +1
+
+
+
+
