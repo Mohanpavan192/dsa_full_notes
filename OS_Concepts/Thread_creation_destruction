@@ -2,6 +2,8 @@ In cpp a thread can be created using std::thread t(callable function,function's 
 if another thread is creating a sub thread, and the function is in another class, we need to pass object's pointer also
   std::thread t(callable function|functor|lamda ,object's ptr if required,arguments);
 you must either call join or detach
+
+
 if you don't do that before exiting, after exiting the thread goes out of scope and 
   it calls terminate() for the process, terminate is a cpp runtime function it's like a kill switch ,if it's triggered, entire program's execution is stopped
 but what if a min thread created another thread and didn't join before exiting, what happens?
